@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/apps/postgres-sandra:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=sandra
+      - POSTGRES_USER=sandra
+      - POSTGRES_DB=sandra
