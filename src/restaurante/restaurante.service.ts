@@ -8,7 +8,9 @@ export class RestauranteService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(createRestauranteDto: CreateRestauranteDto) {
-    return 'This action adds a new restaurante';
+    return this.prisma.restaurante.create({
+      data: createRestauranteDto,
+    });
   }
 
   findAll() {
@@ -16,7 +18,9 @@ export class RestauranteService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} restaurante`;
+    return this.prisma.restaurante.findFirstOrThrow({
+      where: { id },
+    });
   }
 
   update(id: number, updateRestauranteDto: UpdateRestauranteDto) {
