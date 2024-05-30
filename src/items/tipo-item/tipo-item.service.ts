@@ -17,10 +17,15 @@ export class TipoItemService {
     }
   }
 
-  findAll() {
+  findAll(restauranteId: number) {
     return this.prisma.tipoItem.findMany({
-      include: {
-        restaurante: true,
+      select: {
+        id: true,
+        descricao: true,
+        ativo: true,
+      },
+      where: {
+        restauranteId: +restauranteId,
       },
     });
   }

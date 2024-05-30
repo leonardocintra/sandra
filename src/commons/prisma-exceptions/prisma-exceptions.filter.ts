@@ -17,7 +17,7 @@ export class PrismaExceptionsFilter implements ExceptionFilter {
       if (meta.target && meta.target.length) {
         return `O campo '${meta.target.join(', ')}' já existe cadastrado. Não permitimos duplicidade.`;
       }
-
+      
       if (exception.meta.field_name) {
         return `O id de '${exception.meta.field_name} não foi encontrado. Verificar.`;
       } else {

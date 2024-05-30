@@ -5,5 +5,6 @@ import { TipoItemController } from './tipo-item.controller';
 @Module({
   controllers: [TipoItemController],
   providers: [TipoItemService],
+  exports: [TipoItemService],
 })
 export class TipoItemModule {}

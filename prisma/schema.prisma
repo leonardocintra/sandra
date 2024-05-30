@@ -26,4 +26,12 @@ model TipoItem {
   restauranteId Int
   restaurante   Restaurante @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
   ativo         Boolean     @default(true)
+  Item          Item[]
+}
+
+model Item {
+  id         Int      @id @default(autoincrement())
+  descricao  String   @db.VarChar(60)
+  tipoItemId Int
+  tipoItem   TipoItem @relation(fields: [tipoItemId], references: [id], onDelete: Cascade)
 }
