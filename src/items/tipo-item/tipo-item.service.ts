@@ -8,9 +8,13 @@ export class TipoItemService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(createTipoItemDto: CreateTipoItemDto) {
-    return this.prisma.tipoItem.create({
-      data: createTipoItemDto,
-    });
+    try {
+      return this.prisma.tipoItem.create({
+        data: createTipoItemDto,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   findAll() {
@@ -30,6 +34,8 @@ export class TipoItemService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} tipoItem`;
+    return this.prisma.tipoItem.delete({
+      where: { id },
+    });
   }
 }
