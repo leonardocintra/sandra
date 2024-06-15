@@ -7,9 +7,16 @@ import { ItemModule } from './items/item/item.module';
 import { TipoItemModule } from './items/tipo-item/tipo-item.module';
 import { APP_FILTER } from '@nestjs/core';
 import { PrismaExceptionsFilter } from './commons/prisma-exceptions/prisma-exceptions.filter';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [RestauranteModule, PrismaModule, ItemModule, TipoItemModule],
+  imports: [
+    RestauranteModule,
+    PrismaModule,
+    ItemModule,
+    TipoItemModule,
+    AuthModule,
+  ],
   controllers: [AppController],
   providers: [
     AppService,
