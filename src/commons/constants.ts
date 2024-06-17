@@ -4,3 +4,4 @@ export const REGISTRO_NAO_ENCONTRADO = 'P2003';
 export const NULL_CONSTRAINT_VIOLATION = 'P2011';
 export const RECORD_TO_DELETE_DOES_NOT_EXIST = 'P2025';
 
+export const KINDE_BASE_URL = 'https://gisele.kinde.com';

@@ -2,15 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { CreateRestauranteDto } from './dto/create-restaurante.dto';
 import { UpdateRestauranteDto } from './dto/update-restaurante.dto';
 import { PrismaService } from 'src/prisma.service';
+import { OrganizationsService } from 'src/kinde/organizations/organizations.service';
 
 @Injectable()
 export class RestauranteService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly kindeOrganization: OrganizationsService,
+  ) {}
 
-  create(createRestauranteDto: CreateRestauranteDto) {
-    return this.prisma.restaurante.create({
+  async create(createRestauranteDto: CreateRestauranteDto) {
+    // TODO: criar na api backend
+    const restaurante = await this.prisma.restaurante.create({
       data: createRestauranteDto,
     });
+
+    // TODO: criar na api Kind (auth)
+    // await this.kindeOrganization.create({
+    //   name: restaurante.descricao,
+    //   external_id: restaurante.id.toString(),
+    // });
+
+    // TODO: mover usuarios para a nova organization
+
+    // TODO: criar usuario no sistema sandraAPI
+
+    return restaurante;
   }
 
   findAll() {
@@ -27,7 +44,8 @@ export class RestauranteService {
     return `This action updates a #${id} restaurante`;
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    // TODO: remover organization do kinde
     return `This action removes a #${id} restaurante`;
   }
 }

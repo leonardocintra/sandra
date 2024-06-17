@@ -8,6 +8,7 @@ import { TipoItemModule } from './items/tipo-item/tipo-item.module';
 import { APP_FILTER } from '@nestjs/core';
 import { PrismaExceptionsFilter } from './commons/prisma-exceptions/prisma-exceptions.filter';
 import { AuthModule } from './auth/auth.module';
+import { KindeModule } from './kinde/kinde.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { AuthModule } from './auth/auth.module';
     ItemModule,
     TipoItemModule,
     AuthModule,
+    KindeModule,
   ],
   controllers: [AppController],
   providers: [
