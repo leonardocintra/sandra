@@ -22,7 +22,7 @@ export class TipoItemController {
 
   @Get('/restaurante/:id')
   findAll(@Param('id') id: number) {
-    return this.tipoItemService.findAll(id);
+    return this.tipoItemService.findAllByRestauranteId(id);
   }
 
   @Get(':id')

@@ -21,8 +21,13 @@ export class ItemController {
   }
 
   @Get('/restaurante/:id')
-  findAll(@Param('id') id: number) {
-    return this.itemService.findAll(id);
+  findAllByRestauranteId(@Param('id') id: number) {
+    return this.itemService.findAllByRestauranteId(id);
+  }
+
+  @Get('/tipo-item/:id')
+  findAllByTipoItemId(@Param('id') id: number) {
+    return this.itemService.findAllByTipoItemId(id);
   }
 
   @Get(':id')

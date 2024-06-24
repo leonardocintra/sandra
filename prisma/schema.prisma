@@ -27,6 +27,8 @@ model TipoItem {
   restaurante   Restaurante @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
   ativo         Boolean     @default(true)
   Item          Item[]
+
+  @@unique([restauranteId, descricao])
 }
 
 model Item {

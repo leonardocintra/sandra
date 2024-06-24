@@ -17,8 +17,9 @@ export class ItemService {
     });
   }
 
-  async findAll(restauranteId: number) {
-    const tipoItems = await this.tipoItemService.findAll(restauranteId);
+  async findAllByRestauranteId(restauranteId: number) {
+    const tipoItems =
+      await this.tipoItemService.findAllByRestauranteId(restauranteId);
 
     return await this.prisma.item.findMany({
       where: {
@@ -36,8 +37,37 @@ export class ItemService {
     });
   }
 
+  async findAllByTipoItemId(tipoItemId: number) {
+    return await this.prisma.item.findMany({
+      where: {
+        tipoItemId: +tipoItemId,
+      },
+      include: {
+        tipoItem: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+      },
+      orderBy: {
+        descricao: "asc"
+      }
+    });
+  }
+
   findOne(id: number) {
-    return `This action returns a #${id} item`;
+    return this.prisma.item.findFirstOrThrow({
+      where: { id },
+      include: {
+        tipoItem: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+      },
+    });
   }
 
   update(id: number, updateItemDto: UpdateItemDto) {

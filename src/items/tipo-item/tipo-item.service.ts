@@ -17,7 +17,7 @@ export class TipoItemService {
     }
   }
 
-  findAll(restauranteId: number) {
+  findAllByRestauranteId(restauranteId: number) {
     return this.prisma.tipoItem.findMany({
       select: {
         id: true,
@@ -31,7 +31,9 @@ export class TipoItemService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} tipoItem`;
+    return this.prisma.tipoItem.findFirstOrThrow({
+      where: { id: +id },
+    });
   }
 
   update(id: number, updateTipoItemDto: UpdateTipoItemDto) {
