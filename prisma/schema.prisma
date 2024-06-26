@@ -36,4 +36,6 @@ model Item {
   descricao  String   @db.VarChar(60)
   tipoItemId Int
   tipoItem   TipoItem @relation(fields: [tipoItemId], references: [id], onDelete: Cascade)
+
+  @@unique([tipoItemId, descricao])
 }
