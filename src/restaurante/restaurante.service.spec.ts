@@ -3,6 +3,7 @@ import { RestauranteService } from './restaurante.service';
 import { PrismaService } from 'src/prisma.service';
 import { OrganizationsService } from 'src/kinde/organizations/organizations.service';
 import { CreateRestauranteDto } from './dto/create-restaurante.dto';
+import { NotFoundException } from '@nestjs/common';
 
 describe('RestauranteService', () => {
   let service: RestauranteService;
@@ -17,6 +18,8 @@ describe('RestauranteService', () => {
           useValue: {
             restaurante: {
               create: jest.fn(),
+              findMany: jest.fn(),
+              findFirstOrThrow: jest.fn(),
             },
           },
         },
@@ -48,5 +51,40 @@ describe('RestauranteService', () => {
     expect(prismaService.restaurante.create).toHaveBeenCalledWith({
       data: createRestauranteDto,
     });
+  });
+
+  it('should return an array of restaurants', async () => {
+    const mockRestaurants = [
+      { id: 1, descricao: 'Restaurant 1', ativo: true },
+      { id: 2, descricao: 'Restaurant 2', ativo: true },
+    ];
+    jest
+      .spyOn(prismaService.restaurante, 'findMany')
+      .mockResolvedValue(mockRestaurants);
+
+    const result = await service.findAll();
+    expect(result).toEqual(mockRestaurants);
+    expect(prismaService.restaurante.findMany).toHaveBeenCalled();
+  });
+
+  it('should return a restaurant by id', async () => {
+    const mockRestaurant = { id: 1, descricao: 'Restaurant 1', ativo: true };
+    jest
+      .spyOn(prismaService.restaurante, 'findFirstOrThrow')
+      .mockResolvedValue(mockRestaurant);
+
+    const result = await service.findOne(1);
+    expect(result).toEqual(mockRestaurant);
+    expect(prismaService.restaurante.findFirstOrThrow).toHaveBeenCalledWith({
+      where: { id: 1 },
+    });
+  });
+
+  it('should throw an error if restaurant is not found', async () => {
+    jest
+      .spyOn(prismaService.restaurante, 'findFirstOrThrow')
+      .mockRejectedValue(new NotFoundException());
+
+    await expect(service.findOne(31)).rejects.toThrow(NotFoundException);
   });
 });
