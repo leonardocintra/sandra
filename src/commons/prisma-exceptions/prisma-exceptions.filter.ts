@@ -17,7 +17,7 @@ export class PrismaExceptionsFilter implements ExceptionFilter {
       if (meta.target && meta.target.length) {
         return `O campo '${meta.target.join(', ')}' já existe cadastrado. Não permitimos duplicidade.`;
       }
-      
+
       if (exception.meta.field_name) {
         return `O id de '${exception.meta.field_name} não foi encontrado. Verificar.`;
       } else {
@@ -56,12 +56,13 @@ export class PrismaExceptionsFilter implements ExceptionFilter {
       });
     } else if (exception.code === RECORD_TO_DELETE_DOES_NOT_EXIST) {
       status = 404;
+
       response.status(status).json({
         statusCode: status,
         timestamp: new Date().toISOString(),
         path: request.url,
         method: request.method,
-        message: 'Registro não encontrado. Tente novamente',
+        message: `Registro não encontrado. ${exception.message}`,
       });
     } else {
       response.status(status).json({

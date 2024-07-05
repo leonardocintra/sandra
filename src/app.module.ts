@@ -9,6 +9,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { PrismaExceptionsFilter } from './commons/prisma-exceptions/prisma-exceptions.filter';
 import { AuthModule } from './auth/auth.module';
 import { KindeModule } from './kinde/kinde.module';
+import { MarmitexModule } from './marmitex/marmitex.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { KindeModule } from './kinde/kinde.module';
     TipoItemModule,
     AuthModule,
     KindeModule,
+    MarmitexModule,
   ],
   controllers: [AppController],
   providers: [

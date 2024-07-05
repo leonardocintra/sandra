@@ -14,10 +14,11 @@ datasource db {
 }
 
 model Restaurante {
-  id        Int        @id @default(autoincrement())
-  descricao String     @db.VarChar(80)
-  ativo     Boolean    @default(true)
-  TipoItem  TipoItem[]
+  id           Int            @id @default(autoincrement())
+  descricao    String         @db.VarChar(80)
+  ativo        Boolean        @default(true)
+  TipoItem     TipoItem[]
+  TipoMarmitex TipoMarmitex[]
 }
 
 model TipoItem {
@@ -38,4 +39,13 @@ model Item {
   tipoItem   TipoItem @relation(fields: [tipoItemId], references: [id], onDelete: Cascade)
 
   @@unique([tipoItemId, descricao])
+}
+
+model TipoMarmitex {
+  id            Int         @id @default(autoincrement())
+  descricao     String      @db.VarChar(40)
+  restauranteId Int
+  restaurante   Restaurante @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+
+  @@unique([restauranteId, descricao])
 }
