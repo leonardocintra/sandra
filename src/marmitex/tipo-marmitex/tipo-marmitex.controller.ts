@@ -12,9 +12,9 @@ export class TipoMarmitexController {
     return this.tipoMarmitexService.create(createTipoMarmitexDto);
   }
 
-  @Get()
-  findAll() {
-    return this.tipoMarmitexService.findAll();
+  @Get('/restaurante/:id')
+  findAll(@Param('id') id) {
+    return this.tipoMarmitexService.findAll(+id);
   }
 
   @Get(':id')

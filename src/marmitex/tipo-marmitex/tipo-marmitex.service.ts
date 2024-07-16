@@ -22,8 +22,16 @@ export class TipoMarmitexService {
     });
   }
 
-  findAll() {
-    return `This action returns all tipoMarmitex`;
+  async findAll(restauranteId: number) {
+    const restaurante = await this.restauranteService.findOne(restauranteId);
+
+    return this.prisma.tipoMarmitex.findMany({
+      select: {
+        id: true,
+        descricao: true,
+      },
+      where: { restauranteId: restaurante.id },
+    });
   }
 
   findOne(id: number) {
