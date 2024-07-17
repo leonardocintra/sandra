@@ -22,12 +22,13 @@ model Restaurante {
 }
 
 model TipoItem {
-  id            Int         @id @default(autoincrement())
-  descricao     String      @db.VarChar(60)
-  restauranteId Int
-  restaurante   Restaurante @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
-  ativo         Boolean     @default(true)
-  Item          Item[]
+  id                   Int                    @id @default(autoincrement())
+  descricao            String                 @db.VarChar(60)
+  restauranteId        Int
+  restaurante          Restaurante            @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+  ativo                Boolean                @default(true)
+  Item                 Item[]
+  ConfiguracaoMarmitex ConfiguracaoMarmitex[]
 
   @@unique([restauranteId, descricao])
 }
@@ -42,10 +43,22 @@ model Item {
 }
 
 model TipoMarmitex {
-  id            Int         @id @default(autoincrement())
-  descricao     String      @db.VarChar(40)
-  restauranteId Int
-  restaurante   Restaurante @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+  id                   Int                    @id @default(autoincrement())
+  descricao            String                 @db.VarChar(40)
+  restauranteId        Int
+  restaurante          Restaurante            @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+  ConfiguracaoMarmitex ConfiguracaoMarmitex[]
 
   @@unique([restauranteId, descricao])
+}
+
+model ConfiguracaoMarmitex {
+  id             Int          @id @default(autoincrement())
+  tipoMarmitexId Int
+  tipoMarmitex   TipoMarmitex @relation(fields: [tipoMarmitexId], references: [id], onDelete: Cascade)
+  tipoItemId     Int
+  tipoItem       TipoItem     @relation(fields: [tipoItemId], references: [id], onDelete: Cascade)
+  quantidade     Int          @default(1)
+
+  @@unique([tipoMarmitexId, tipoItemId])
 }
