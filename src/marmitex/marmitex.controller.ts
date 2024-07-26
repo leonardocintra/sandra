@@ -17,7 +17,7 @@ export class MarmitexController {
     return this.marmitexService.findAll();
   }
 
-  @Get(':id')
+  @Get('/restaurante/:id')
   findOne(@Param('id') id: string) {
     return this.marmitexService.findOne(+id);
   }

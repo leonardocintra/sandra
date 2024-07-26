@@ -18,8 +18,8 @@ export class TipoMarmitexController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tipoMarmitexService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.tipoMarmitexService.findOne(id);
   }
 
   @Patch(':id')

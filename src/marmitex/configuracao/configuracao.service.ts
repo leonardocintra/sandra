@@ -1,15 +1,59 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConfiguracaoDto } from './dto/create-configuracao.dto';
 import { UpdateConfiguracaoDto } from './dto/update-configuracao.dto';
+import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class ConfiguracaoService {
-  create(createConfiguracaoDto: CreateConfiguracaoDto) {
-    return 'This action adds a new configuracao';
+
+  constructor(private readonly prisma: PrismaService) { }
+
+  async create(createConfiguracaoDto: CreateConfiguracaoDto) {
+    const result = await this.prisma.configuracaoMarmitex.create({
+      select: {
+        id: true,
+        quantidade: true,
+        tipoItem: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+        tipoMarmitex: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+      },
+      data: {
+        quantidade: createConfiguracaoDto.quantidade,
+        tipoItemId: createConfiguracaoDto.tipoItem.id,
+        tipoMarmitexId: createConfiguracaoDto.tipoMarmitex.id,
+      }
+    })
+    return result;
   }
 
   findAll() {
-    return `This action returns all configuracao`;
+    return this.prisma.configuracaoMarmitex.findMany({
+      select: {
+        id: true,
+        quantidade: true,
+        tipoItem: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+        tipoMarmitex: {
+          select: {
+            id: true,
+            descricao: true,
+          },
+        },
+      },
+    });
   }
 
   findOne(id: number) {

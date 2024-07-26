@@ -6,4 +6,4 @@ import { ConfiguracaoController } from './configuracao.controller';
   controllers: [ConfiguracaoController],
   providers: [ConfiguracaoService],
 })
-export class ConfiguracaoModule {}
+export class ConfiguracaoModule { }

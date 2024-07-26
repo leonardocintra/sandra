@@ -3,7 +3,7 @@ import { ConfiguracaoService } from './configuracao.service';
 import { CreateConfiguracaoDto } from './dto/create-configuracao.dto';
 import { UpdateConfiguracaoDto } from './dto/update-configuracao.dto';
 
-@Controller('configuracao')
+@Controller('marmitex/configuracao')
 export class ConfiguracaoController {
   constructor(private readonly configuracaoService: ConfiguracaoService) {}
 
