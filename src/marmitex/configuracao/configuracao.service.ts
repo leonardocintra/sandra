@@ -35,8 +35,8 @@ export class ConfiguracaoService {
     return result;
   }
 
-  findAll() {
-    return this.prisma.configuracaoMarmitex.findMany({
+  async findAll() {
+    const configs = await this.prisma.configuracaoMarmitex.findMany({
       select: {
         id: true,
         quantidade: true,
@@ -54,6 +54,34 @@ export class ConfiguracaoService {
         },
       },
     });
+
+    const result = configs.reduce((acc, item) => {
+      const marmitexIndex = acc.findIndex(
+        (m) => m.tipoMarmitex === item.tipoMarmitex.id
+      );
+
+      const config = {
+        quantidade: item.quantidade,
+        tipoItem: {
+          id: item.tipoItem.id,
+          descricao: item.tipoItem.descricao,
+        },
+      };
+
+      if (marmitexIndex === -1) {
+        acc.push({
+          tipoMarmitex: item.tipoMarmitex.id,
+          descricao: item.tipoMarmitex.descricao,
+          configuracao: [config],
+        });
+      } else {
+        acc[marmitexIndex].configuracao.push(config);
+      }
+
+      return acc;
+    }, []);
+
+    return result;
   }
 
   findOne(id: number) {
