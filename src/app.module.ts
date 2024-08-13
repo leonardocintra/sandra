@@ -10,6 +10,7 @@ import { PrismaExceptionsFilter } from './commons/prisma-exceptions/prisma-excep
 import { AuthModule } from './auth/auth.module';
 import { KindeModule } from './kinde/kinde.module';
 import { MarmitexModule } from './marmitex/marmitex.module';
+import { CardapioModule } from './cardapio/cardapio.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MarmitexModule } from './marmitex/marmitex.module';
     AuthModule,
     KindeModule,
     MarmitexModule,
+    CardapioModule,
   ],
   controllers: [AppController],
   providers: [

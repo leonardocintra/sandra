@@ -7,5 +7,6 @@ import { TipoItemModule } from '../tipo-item/tipo-item.module';
   controllers: [ItemController],
   providers: [ItemService],
   imports: [TipoItemModule],
+  exports: [ItemService]
 })
-export class ItemModule {}
+export class ItemModule { }
