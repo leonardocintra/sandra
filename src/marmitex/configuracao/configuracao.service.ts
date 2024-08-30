@@ -2,85 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { CreateConfiguracaoDto } from './dto/create-configuracao.dto';
 import { UpdateConfiguracaoDto } from './dto/update-configuracao.dto';
 import { PrismaService } from 'src/prisma.service';
+import { ConfiguracaoRepository } from './configuracao.repository';
 
 @Injectable()
 export class ConfiguracaoService {
-
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly configuracaoRepository: ConfiguracaoRepository,
+  ) { }
 
   async create(createConfiguracaoDto: CreateConfiguracaoDto) {
-    const result = await this.prisma.configuracaoMarmitex.create({
-      select: {
-        id: true,
-        quantidade: true,
-        tipoItem: {
-          select: {
-            id: true,
-            descricao: true,
-          },
-        },
-        tipoMarmitex: {
-          select: {
-            id: true,
-            descricao: true,
-          },
-        },
-      },
-      data: {
-        quantidade: createConfiguracaoDto.quantidade,
-        tipoItemId: createConfiguracaoDto.tipoItem.id,
-        tipoMarmitexId: createConfiguracaoDto.tipoMarmitex.id,
-      }
-    })
-    return result;
+    return `This action create a configuracao`;
   }
 
   async findAll() {
-    const configs = await this.prisma.configuracaoMarmitex.findMany({
-      select: {
-        id: true,
-        quantidade: true,
-        tipoItem: {
-          select: {
-            id: true,
-            descricao: true,
-          },
-        },
-        tipoMarmitex: {
-          select: {
-            id: true,
-            descricao: true,
-          },
-        },
-      },
-    });
-
-    const result = configs.reduce((acc, item) => {
-      const marmitexIndex = acc.findIndex(
-        (m) => m.tipoMarmitex === item.tipoMarmitex.id
-      );
-
-      const config = {
-        quantidade: item.quantidade,
-        tipoItem: {
-          id: item.tipoItem.id,
-          descricao: item.tipoItem.descricao,
-        },
-      };
-
-      if (marmitexIndex === -1) {
-        acc.push({
-          tipoMarmitex: item.tipoMarmitex.id,
-          descricao: item.tipoMarmitex.descricao,
-          configuracao: [config],
-        });
-      } else {
-        acc[marmitexIndex].configuracao.push(config);
-      }
-
-      return acc;
-    }, []);
-
+    const result = await this.configuracaoRepository.findAll();
     return result;
   }
 
