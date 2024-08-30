@@ -4,7 +4,7 @@ import { Item } from './entities/item.entity';
 
 @Injectable()
 export class ItemRepository {
-  private readonly tableName = 'marmitex-items';
+  private readonly tableName = 'items';
   private readonly client: DynamoDBClient;
 
   constructor() {
