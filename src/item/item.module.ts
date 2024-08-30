@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ItemService } from './item.service';
 import { ItemController } from './item.controller';
-import { TipoItemModule } from '../tipo-item/tipo-item.module';
+import { ItemRepository } from './item.repository';
 
 @Module({
   controllers: [ItemController],
-  providers: [ItemService],
-  imports: [TipoItemModule],
-  exports: [ItemService]
+  providers: [ItemService, ItemRepository],
 })
-export class ItemModule { }
+export class ItemModule {}
