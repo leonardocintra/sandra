@@ -2,14 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { CreateCardapioDto } from './dto/create-cardapio.dto';
 import { UpdateCardapioDto } from './dto/update-cardapio.dto';
 import { CardapioRepository } from './cardapio.repository';
+import { Cardapio } from './entities/cardapio.entity';
 
 @Injectable()
 export class CardapioService {
-
-  constructor(private readonly cardapioRepository: CardapioRepository) { }
+  constructor(private readonly cardapioRepository: CardapioRepository) {}
 
   create(createCardapioDto: CreateCardapioDto) {
-    return 'This action adds a new cardapio';
+    return this.cardapioRepository.upsertOne(
+      Cardapio.newInstanceFromDto(createCardapioDto),
+    );
   }
 
   findAll() {

@@ -1,4 +1,9 @@
-import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
+import {
+  AttributeValue,
+  DynamoDBClient,
+  PutItemCommand,
+  ScanCommand,
+} from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
 import { Cardapio } from './entities/cardapio.entity';
 
@@ -38,5 +43,21 @@ export class CardapioRepository {
       console.error('Error retrieving cardapio:', err);
       throw err;
     }
+  }
+
+  async upsertOne(data: Cardapio) {
+    const itemObject: Record<string, AttributeValue> = {
+      restaurante: { S: data.restaurante },
+      tipo: { S: data.tipo },
+      items: { SS: data.items },
+    };
+
+    const command = new PutItemCommand({
+      TableName: this.tableName,
+      Item: itemObject,
+    });
+
+    await this.client.send(command);
+    return data;
   }
 }
