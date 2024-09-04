@@ -10,6 +10,7 @@ import { KindeModule } from './kinde/kinde.module';
 import { MarmitexModule } from './marmitex/marmitex.module';
 import { ItemModule } from './item/item.module';
 import { CardapioModule } from './cardapio/cardapio.module';
+import { PedidoModule } from './pedido/pedido.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { CardapioModule } from './cardapio/cardapio.module';
     MarmitexModule,
     ItemModule,
     CardapioModule,
+    PedidoModule,
   ],
   controllers: [AppController],
   providers: [
