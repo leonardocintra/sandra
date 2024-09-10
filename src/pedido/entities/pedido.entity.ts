@@ -4,6 +4,7 @@ export class Pedido {
   dataPedido: string;
   nome: string;
   telefone: string;
+  items: string[];
 
   static newInstanceFromDynamoDB(data: any): Pedido {
     const result = new Pedido();
@@ -13,6 +14,7 @@ export class Pedido {
     result.dataPedido = data.dataPedido.S;
     result.nome = data.nome.S;
     result.telefone = data.telefone.S;
+    result.items = data.items.SS;
 
     return result;
   }
