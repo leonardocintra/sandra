@@ -4,11 +4,13 @@ import {
   PutItemCommand,
   ScanCommand,
 } from '@aws-sdk/client-dynamodb';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Cardapio } from './entities/cardapio.entity';
 
 @Injectable()
 export class CardapioRepository {
+  private readonly logger = new Logger(CardapioRepository.name);
+
   private readonly tableName = 'cardapio';
   private readonly client: DynamoDBClient;
 
@@ -57,7 +59,8 @@ export class CardapioRepository {
       Item: itemObject,
     });
 
-    await this.client.send(command);
+    const result = await this.client.send(command);
+    this.logger.log(JSON.stringify(result));
     return data;
   }
 }

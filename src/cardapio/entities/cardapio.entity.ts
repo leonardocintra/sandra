@@ -1,4 +1,4 @@
-import { CreateCardapioDto } from "../dto/create-cardapio.dto";
+import { CardapioDto } from "../dto/cardapio.dto";
 
 export class Cardapio {
   restaurante: string;
@@ -15,7 +15,7 @@ export class Cardapio {
     return result;
   }
 
-  static newInstanceFromDto(data: CreateCardapioDto): Cardapio {
+  static newInstanceFromDto(data: CardapioDto): Cardapio {
     const result = new Cardapio();
 
     result.restaurante = data.restaurante;

@@ -1,14 +1,15 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCardapioDto } from './dto/create-cardapio.dto';
-import { UpdateCardapioDto } from './dto/update-cardapio.dto';
+import { Injectable, Logger } from '@nestjs/common';
+import { CardapioDto } from './dto/cardapio.dto';
 import { CardapioRepository } from './cardapio.repository';
 import { Cardapio } from './entities/cardapio.entity';
 
 @Injectable()
 export class CardapioService {
-  constructor(private readonly cardapioRepository: CardapioRepository) {}
+  private readonly logger = new Logger(CardapioService.name);
 
-  create(createCardapioDto: CreateCardapioDto) {
+  constructor(private readonly cardapioRepository: CardapioRepository) { }
+
+  create(createCardapioDto: CardapioDto) {
     return this.cardapioRepository.upsertOne(
       Cardapio.newInstanceFromDto(createCardapioDto),
     );
@@ -22,8 +23,17 @@ export class CardapioService {
     return `This action returns a #${id} cardapio`;
   }
 
-  update(id: number, updateCardapioDto: UpdateCardapioDto) {
-    return `This action updates a #${id} cardapio`;
+  update(restaurante: string, updateCardapioDto: CardapioDto) {
+    this.logger.log(`Chamado para atualizar cardapio de ${restaurante}`)
+
+    try {
+      return this.cardapioRepository.upsertOne(
+        Cardapio.newInstanceFromDto(updateCardapioDto),
+      );
+    } catch (error) {
+      this.logger.error(`Erro ao atualizar cardapio: ${error.message}`);
+      throw error;
+    }
   }
 
   remove(id: number) {

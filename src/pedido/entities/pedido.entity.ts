@@ -3,6 +3,7 @@ export class Pedido {
   pedidoId: string;
   dataPedido: string;
   nome: string;
+  sobrenome: string;
   telefone: string;
   items: string[];
 
@@ -13,6 +14,7 @@ export class Pedido {
     result.pedidoId = data.pedidoId.S;
     result.dataPedido = data.dataPedido.S;
     result.nome = data.nome.S;
+    result.sobrenome = data.sobrenome.S;
     result.telefone = data.telefone.S;
     result.items = data.items.SS;
 

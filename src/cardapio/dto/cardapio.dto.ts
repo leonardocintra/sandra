@@ -1,6 +1,6 @@
 import { IsArray, IsString } from "class-validator";
 
-export class CreateCardapioDto {
+export class CardapioDto {
 
   @IsString()
   restaurante: string;
@@ -9,6 +9,6 @@ export class CreateCardapioDto {
   tipo: string;
 
   @IsArray()
-  @IsString({ each: true })  // Ensure each item is a string
+  @IsString({ each: true })
   items: Array<string>;
 }
