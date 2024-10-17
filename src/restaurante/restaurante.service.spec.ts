@@ -42,6 +42,7 @@ describe('RestauranteService', () => {
   it('should create a restaurant', async () => {
     const createRestauranteDto: CreateRestauranteDto = {
       descricao: 'Restaurante Teste',
+      userId: "384932842984989"
     };
 
     const result = { id: 1, descricao: 'Restaurante Teste', ativo: true };

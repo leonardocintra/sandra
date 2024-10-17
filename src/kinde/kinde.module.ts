@@ -4,7 +4,7 @@ import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [HttpModule],
-  providers: [KindeService],
+  providers: [KindeService,],
   exports: [KindeService],
 })
-export class KindeModule {}
+export class KindeModule { }
