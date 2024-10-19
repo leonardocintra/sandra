@@ -6,5 +6,6 @@ import { CardapioRepository } from './cardapio.repository';
 @Module({
   controllers: [CardapioController],
   providers: [CardapioService, CardapioRepository],
+  exports: [CardapioService],
 })
 export class CardapioModule { }

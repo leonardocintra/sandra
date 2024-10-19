@@ -1,5 +1,5 @@
 import { Item } from "../entities/item.entity";
- 
+
 export function obterDadosItemIniciais(restaurante: string): Array<Item> {
   return [
     {
@@ -20,6 +20,32 @@ export function obterDadosItemIniciais(restaurante: string): Array<Item> {
       restaurante,
       items: [
         "Alface", "Beterraba", "Maionese", "Pepino", "Tomate", "Vinagrete"
+      ],
+      tipo: "salada"
+    },
+  ]
+}
+
+export function obterDadosCardapioIniciais(restaurante: string): Array<Item> {
+  return [
+    {
+      restaurante,
+      items: [
+        "Strogonoff de frango"
+      ],
+      tipo: "carne"
+    },
+    {
+      restaurante,
+      items: [
+        "Batata frita"
+      ],
+      tipo: "guarnicao"
+    },
+    {
+      restaurante,
+      items: [
+        "Vinagrete"
       ],
       tipo: "salada"
     },

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { CardapioDto } from './dto/cardapio.dto';
 import { CardapioRepository } from './cardapio.repository';
 import { Cardapio } from './entities/cardapio.entity';
@@ -15,12 +15,8 @@ export class CardapioService {
     );
   }
 
-  findAll() {
-    return this.cardapioRepository.findAll();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} cardapio`;
+  findByRestaurante(restaurante: string) {
+    return this.cardapioRepository.findByRestaurante(restaurante);
   }
 
   update(restaurante: string, updateCardapioDto: CardapioDto) {

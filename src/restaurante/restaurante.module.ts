@@ -4,11 +4,12 @@ import { RestauranteController } from './restaurante.controller';
 import { OrganizationsModule } from 'src/kinde/organizations/organizations.module';
 import { UsersModule } from 'src/kinde/users/users.module';
 import { ItemModule } from 'src/item/item.module';
+import { CardapioModule } from 'src/cardapio/cardapio.module';
 
 @Module({
   controllers: [RestauranteController],
   providers: [RestauranteService],
   exports: [RestauranteService],
-  imports: [OrganizationsModule, UsersModule, ItemModule],
+  imports: [OrganizationsModule, UsersModule, ItemModule, CardapioModule],
 })
 export class RestauranteModule { }

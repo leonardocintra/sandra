@@ -11,14 +11,9 @@ export class CardapioController {
     return this.cardapioService.create(createCardapioDto);
   }
 
-  @Get()
-  findAll() {
-    return this.cardapioService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.cardapioService.findOne(+id);
+  @Get(':restaurante')
+  findByRestaurante(@Param('restaurante') restaurante: string) {
+    return this.cardapioService.findByRestaurante(restaurante);
   }
 
   @Patch(':restaurante')

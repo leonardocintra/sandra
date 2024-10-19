@@ -6,7 +6,8 @@ import { OrganizationsService } from 'src/kinde/organizations/organizations.serv
 import { UsersService } from 'src/kinde/users/users.service';
 import { IOrganization } from 'restaurante';
 import { ItemService } from 'src/item/item.service';
-import { obterDadosItemIniciais } from 'src/item/datas/item.initial-data';
+import { obterDadosCardapioIniciais, obterDadosItemIniciais } from 'src/item/datas/item.initial-data';
+import { CardapioService } from 'src/cardapio/cardapio.service';
 
 @Injectable()
 export class RestauranteService {
@@ -16,7 +17,8 @@ export class RestauranteService {
     private readonly prisma: PrismaService,
     private readonly kindeOrganization: OrganizationsService,
     private readonly userService: UsersService,
-    private readonly itemService: ItemService
+    private readonly itemService: ItemService,
+    private readonly cardapioService: CardapioService,
   ) { }
 
   async create(createRestauranteDto: CreateRestauranteDto) {
@@ -69,11 +71,22 @@ export class RestauranteService {
   private createInitialItemsData(restaurante: string) {
     const itensIniciais = obterDadosItemIniciais(restaurante);
     itensIniciais.map(i => {
+      // adiciona os itens padrao de todos os restaurantes
       this.itemService.create({
         restaurante: i.restaurante,
         tipo: i.tipo,
         items: i.items
       })
-    })
+    });
+
+    const cardapioIniciais = obterDadosCardapioIniciais(restaurante)
+    cardapioIniciais.map(i => {
+      // adiciona um cardapio inicial padrao
+      this.cardapioService.create({
+        restaurante: i.restaurante,
+        tipo: i.tipo,
+        items: i.items
+      })
+    });
   }
 }

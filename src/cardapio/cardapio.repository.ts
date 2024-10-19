@@ -2,7 +2,7 @@ import {
   AttributeValue,
   DynamoDBClient,
   PutItemCommand,
-  ScanCommand,
+  QueryCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable, Logger } from '@nestjs/common';
 import { Cardapio } from './entities/cardapio.entity';
@@ -24,12 +24,18 @@ export class CardapioRepository {
     });
   }
 
-  async findAll() {
+  async findByRestaurante(restaurante: string) {
     try {
       const result: Cardapio[] = [];
 
-      const command = new ScanCommand({
+      const command = new QueryCommand({
         TableName: this.tableName,
+        KeyConditionExpression: "restaurante = :a",
+        ExpressionAttributeValues: {
+          ":a": {
+            S: restaurante
+          }
+        }
       });
 
       const response = await this.client.send(command);
@@ -42,7 +48,7 @@ export class CardapioRepository {
 
       return result;
     } catch (err) {
-      console.error('Error retrieving cardapio:', err);
+      this.logger.error('Error retrieving cardapio:', err)
       throw err;
     }
   }
