@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
 import { ItemRepository } from './item.repository';
@@ -9,15 +9,17 @@ export class ItemService {
   constructor(private readonly itemRepository: ItemRepository) { }
 
   create(createItemDto: CreateItemDto) {
-    return 'This action adds a new item';
+    return this.itemRepository.upsertOne(createItemDto);
   }
 
-  findAll() {
-    return this.itemRepository.findAll();
-  }
+  async findOne(restauranteId: string) {
+    const result = await this.itemRepository.findByOne(restauranteId)
 
-  findOne(id: number) {
-    return `This action returns a #${id} item`;
+    if (!result || result.length === 0) {
+      throw new HttpException('Item not found', HttpStatus.NOT_FOUND);
+    }
+
+    return result;
   }
 
   update(id: number, updateItemDto: UpdateItemDto) {

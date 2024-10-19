@@ -1,7 +1,7 @@
 export class Item {
   restaurante: string;
   tipo: string;
-  items: Array<String>;
+  items: Array<string>;
 
   static newInstanceFromDynamoDB(data: any): Item {
     const result = new Item();
