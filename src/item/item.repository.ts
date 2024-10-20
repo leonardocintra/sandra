@@ -1,23 +1,14 @@
 import { AttributeValue, DynamoDBClient, PutItemCommand, QueryCommand } from '@aws-sdk/client-dynamodb';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create-item.dto';
+import { BaseRepository } from 'src/commons/repository/base-repository';
 
 @Injectable()
-export class ItemRepository {
-  private readonly logger = new Logger(ItemRepository.name);
-
-  private readonly tableName = 'items';
-  private readonly client: DynamoDBClient;
+export class ItemRepository extends BaseRepository {
 
   constructor() {
-    this.client = new DynamoDBClient({
-      region: process.env.AWS_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-    });
+    super('items')
   }
 
   async findByOne(restaurante: string) {

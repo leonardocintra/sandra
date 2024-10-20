@@ -1,23 +1,14 @@
 import {
-  DynamoDBClient,
   ScanCommand,
 } from '@aws-sdk/client-dynamodb';
 import { Injectable } from '@nestjs/common';
 import { Pedido } from './entities/pedido.entity';
+import { BaseRepository } from 'src/commons/repository/base-repository';
 
 @Injectable()
-export class PedidoRepository {
-  private readonly tableName = 'pedido';
-  private readonly client: DynamoDBClient;
-
+export class PedidoRepository extends BaseRepository {
   constructor() {
-    this.client = new DynamoDBClient({
-      region: process.env.AWS_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-    });
+    super('pedido')
   }
 
   async findAll() {

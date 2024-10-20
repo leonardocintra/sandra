@@ -1,30 +1,20 @@
 import {
   AttributeValue,
-  DynamoDBClient,
   PutItemCommand,
   QueryCommand,
 } from '@aws-sdk/client-dynamodb';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Cardapio } from './entities/cardapio.entity';
+import { BaseRepository } from 'src/commons/repository/base-repository';
 
 @Injectable()
-export class CardapioRepository {
-  private readonly logger = new Logger(CardapioRepository.name);
-
-  private readonly tableName = 'cardapio';
-  private readonly client: DynamoDBClient;
+export class CardapioRepository extends BaseRepository {
 
   constructor() {
-    this.client = new DynamoDBClient({
-      region: process.env.AWS_REGION,
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-    });
+    super('cardapio')
   }
 
-  async findByRestaurante(restaurante: string) {
+  async findByRestaurante(restaurante: string): Promise<Cardapio[]> {
     try {
       const result: Cardapio[] = [];
 
@@ -53,7 +43,7 @@ export class CardapioRepository {
     }
   }
 
-  async upsertOne(data: Cardapio) {
+  async upsertOne(data: Cardapio): Promise<Cardapio> {
     const itemObject: Record<string, AttributeValue> = {
       restaurante: { S: data.restaurante },
       tipo: { S: data.tipo },
