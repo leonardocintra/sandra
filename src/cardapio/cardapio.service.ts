@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { CardapioDto } from './dto/cardapio.dto';
 import { CardapioRepository } from './cardapio.repository';
 import { Cardapio } from './entities/cardapio.entity';

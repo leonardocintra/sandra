@@ -6,8 +6,9 @@ import { OrganizationsService } from 'src/kinde/organizations/organizations.serv
 import { UsersService } from 'src/kinde/users/users.service';
 import { IOrganization } from 'restaurante';
 import { ItemService } from 'src/item/item.service';
-import { obterDadosCardapioIniciais, obterDadosItemIniciais } from 'src/item/datas/item.initial-data';
 import { CardapioService } from 'src/cardapio/cardapio.service';
+import { obterDadosCardapioIniciais, obterDadosConfiguracaoMarmitexIniciais, obterDadosItemIniciais } from 'src/fixtures/initial-data';
+import { ConfiguracaoService } from 'src/marmitex/configuracao/configuracao.service';
 
 @Injectable()
 export class RestauranteService {
@@ -19,6 +20,7 @@ export class RestauranteService {
     private readonly userService: UsersService,
     private readonly itemService: ItemService,
     private readonly cardapioService: CardapioService,
+    private readonly configuracaoService: ConfiguracaoService,
   ) { }
 
   async create(createRestauranteDto: CreateRestauranteDto) {
@@ -86,6 +88,19 @@ export class RestauranteService {
         restaurante: i.restaurante,
         tipo: i.tipo,
         items: i.items
+      })
+    });
+
+    const configuracoesIniciais = obterDadosConfiguracaoMarmitexIniciais(restaurante);
+    configuracoesIniciais.map(i => {
+      // adiciona configuracoes iniciais
+      this.configuracaoService.create({
+        restaurante,
+        maxCarnes: i.maxCarnes,
+        maxGuarnicoes: i.maxGuarnicoes,
+        maxSaladas: i.maxSaladas,
+        preco: i.preco,
+        tipoMarmitex: i.tipoMarmitex
       })
     });
   }

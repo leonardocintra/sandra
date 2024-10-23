@@ -1,18 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConfiguracaoDto } from './dto/create-configuracao.dto';
 import { UpdateConfiguracaoDto } from './dto/update-configuracao.dto';
-import { PrismaService } from 'src/prisma.service';
 import { ConfiguracaoRepository } from './configuracao.repository';
+import { ConfiguracaoMarmitex } from './entities/configuracao.entity';
 
 @Injectable()
 export class ConfiguracaoService {
-  constructor(
-    private readonly prisma: PrismaService,
-    private readonly configuracaoRepository: ConfiguracaoRepository,
-  ) { }
+  constructor(private readonly configuracaoRepository: ConfiguracaoRepository) { }
 
   async create(createConfiguracaoDto: CreateConfiguracaoDto) {
-    return `This action create a configuracao`;
+    return this.configuracaoRepository.upsertOne(
+      ConfiguracaoMarmitex.newInstanceFromDto(createConfiguracaoDto),
+    );
   }
 
   async findAll() {
