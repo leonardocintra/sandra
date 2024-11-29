@@ -84,10 +84,11 @@ model CardapioItens {
 }
 
 model RelatorioConversaWhatsApp {
-  id      Int     @id @default(autoincrement())
-  name    String  @db.VarChar(100)
-  email   String? @db.VarChar(100)
-  phone   String  @db.VarChar(20)
-  sendBy  String  @db.VarChar(10)
-  message String  @db.Text
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(100)
+  email     String?  @db.VarChar(100)
+  phone     String   @db.VarChar(20)
+  sendBy    String   @db.VarChar(10)
+  message   String   @db.Text
+  createdAt DateTime @default(now())
 }
