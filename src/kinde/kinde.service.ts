@@ -7,9 +7,19 @@ import { KINDE_BASE_URL } from 'src/commons/constants';
 export class KindeService {
   private accessToken: string;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
-  async getAccessToken(): Promise<string> {
+  async getHeaders(): Promise<{ 'Content-Type': string; Accept: string; Authorization: string; }> {
+    const token = await this.getAccessToken();
+
+    return {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+  }
+
+  private async getAccessToken(): Promise<string> {
     if (this.accessToken) {
       return this.accessToken;
     }

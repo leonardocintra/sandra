@@ -31,16 +31,20 @@ export class RestauranteService {
       }
     });
 
-    const organization: IOrganization = await this.kindeOrganization.create({
-      name: restaurante.descricao,
-      external_id: restaurante.id.toString(),
-    });
+    try {
+      const organization: IOrganization = await this.kindeOrganization.create({
+        name: restaurante.descricao,
+        external_id: restaurante.id.toString(),
+      });
 
-    this.addUserToOrganization(organization.code, createRestauranteDto.userId);
+      this.addUserToOrganization(organization.code, createRestauranteDto.userId);
 
-    this.createInitialItemsData(organization.code);
-    // TODO: criar usuario no sistema sandraAPI
-    return restaurante;
+      this.createInitialItemsData(organization.code);
+      // TODO: criar usuario no sistema sandraAPI
+      return restaurante;
+    } catch (err) {
+      this.logger.error(`Ocorreu um erro ao criar um restaurante. Erro: ${err}`);
+    }
   }
 
   findAll() {
