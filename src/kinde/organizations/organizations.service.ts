@@ -20,6 +20,15 @@ export class OrganizationsService {
     const organizations: string[] = user.organizations;
     const headers = await this.kindService.getHeaders();
 
+    if (!organizations) {
+      return throwError(() =>
+        new HttpException(
+          `Organizations not found by user ${userId}`,
+          404,
+        ),
+      )
+    }
+
     // Mapeia os códigos das organizações para requisições HTTP
     const requests = organizations.map((orgCode) => {
       const url = `${KINDE_BASE_URL}/api/v1/organization?code=${orgCode}`;
