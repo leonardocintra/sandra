@@ -93,7 +93,7 @@ model RelatorioConversaWhatsApp {
   message       String   @db.Text
   messageType   String   @default("text") @db.VarChar(10)
   audioDuration Int      @default(0) @db.Integer
-  audioMimetype String   @default("text") @db.VarChar(20)
+  audioMimetype String   @default("text") @db.VarChar(40)
   isGroup       Boolean  @default(false) @db.Boolean
   createdAt     DateTime @default(now())
 }
