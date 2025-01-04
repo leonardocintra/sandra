@@ -104,6 +104,7 @@ model PublicacoesRedesSociais {
   createdAt DateTime @default(now())
   message   String   @db.Text
   imageUrl  String   @db.VarChar(200)
+  useImage  Boolean  @default(false) @db.Boolean
   twitter   Boolean  @default(false) @db.Boolean
   thread    Boolean  @default(false) @db.Boolean
   instagram Boolean  @default(false) @db.Boolean
