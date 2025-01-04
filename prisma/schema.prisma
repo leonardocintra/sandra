@@ -103,7 +103,7 @@ model PublicacoesRedesSociais {
   user      String   @default("leonardoncintra") @db.VarChar(50)
   createdAt DateTime @default(now())
   message   String   @db.Text
-  imageUrl  String   @db.VarChar(200)
+  imageUrl  String?   @db.VarChar(200)
   useImage  Boolean  @default(false) @db.Boolean
   twitter   Boolean  @default(false) @db.Boolean
   thread    Boolean  @default(false) @db.Boolean
