@@ -99,15 +99,16 @@ model RelatorioConversaWhatsApp {
 }
 
 model PublicacoesRedesSociais {
-  id        Int      @id @default(autoincrement())
-  user      String   @default("leonardoncintra") @db.VarChar(50)
-  createdAt DateTime @default(now())
-  message   String   @db.Text
-  imageUrl  String?   @db.VarChar(200)
-  useImage  Boolean  @default(false) @db.Boolean
-  twitter   Boolean  @default(false) @db.Boolean
-  thread    Boolean  @default(false) @db.Boolean
-  instagram Boolean  @default(false) @db.Boolean
-  youtube   Boolean  @default(false) @db.Boolean
-  whastapp  Boolean  @default(false) @db.Boolean
+  id           Int      @id @default(autoincrement())
+  user         String   @default("leonardoncintra") @db.VarChar(50)
+  createdAt    DateTime @default(now())
+  message      String   @db.Text
+  imageUrl     String?  @db.VarChar(200)
+  useImage     Boolean  @default(false) @db.Boolean
+  twitter      Boolean  @default(false) @db.Boolean
+  thread       Boolean  @default(false) @db.Boolean
+  instagram    Boolean  @default(false) @db.Boolean
+  youtube      Boolean  @default(false) @db.Boolean
+  whastapp     Boolean  @default(false) @db.Boolean
+  postIdentity String?  @db.VarChar(20)
 }

@@ -1,8 +1,8 @@
 {
   "name": "sandra",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "API Backend para restaurantes e N8N project",
+  "author": "Leonardo Nascimento Cintra",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
